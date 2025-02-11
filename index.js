@@ -32,7 +32,7 @@ function animatePress(currentColor){
 function nextSequence(){
 
     userClickedPattern = [];
-    
+
     level++;
     $('#level-title').text("Level: " + (level)); 
 
@@ -49,7 +49,10 @@ function nextSequence(){
 
 };
 
+// --- Check user input ---//
 function checkAnswer(currentLevel){
+    console.log(userClickedPattern);
+    console.log(gamePattern);
     if (gamePattern[currentLevel] === userClickedPattern[currentLevel]){
 
         console.log("success");
@@ -61,10 +64,25 @@ function checkAnswer(currentLevel){
             }, 1000);
         }
     } else{
+        wrongAnswer();
         console.log("wrong");
     }
 
 };
+
+function wrongAnswer(){
+    $("body").addClass("game-over");
+    setTimeout(function() {
+        $("body").removeClass("game-over");
+    }, 200);
+
+    $("h1").html("Game Over!<br>Press any key to restart");
+
+    var audio = new Audio("sounds/wrong.mp3");
+    audio.play();
+
+    startOver();
+}
 
 
 //---Button click---//
@@ -81,6 +99,15 @@ $(".btn").click(function(){
         checkAnswer(userClickedPattern.length - 1);
 
     });
+
+
+
+function startOver(){
+    level = 0;
+    gamePattern = [];
+    started = false;
+}
+    
 
 // ---Main--//
 $(document).on('keypress',function() {
