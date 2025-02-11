@@ -78,8 +78,7 @@ function wrongAnswer(){
 
     $("h1").html("Game Over!<br>Press any key to restart");
 
-    var audio = new Audio("sounds/wrong.mp3");
-    audio.play();
+    playSound("wrong");
 
     startOver();
 }
